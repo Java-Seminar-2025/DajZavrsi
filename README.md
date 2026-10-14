@@ -6,13 +6,13 @@ Travel fino with Travelino
 - For any help you can contact our support and maintainer Paulo Božulić. Josip Grgat, Duje Budiša
   
 # Project Specification
-Backend:	Java + Spring Boot
-Frontend:	React
-Database:	MySQL
-AI Integration:	OpenAI API / Ollama (local LLM)
-Flight Search: API	Skyscanner
-Accommodation: API	Booking.com 
-Attractions & Reviews: API	Tripadvisor 
-Communication:	REST API (JSON)
-Version Control:	Git + GitHub
+- Backend:	Java + Spring Boot
+- Frontend:	React
+- Database:	MySQL
+- AI Integration:	OpenAI API / Ollama (local LLM)
+- Flight Search: API	Skyscanner
+- Accommodation: API	Booking.com 
+- Attractions & Reviews: API	Tripadvisor 
+- Communication:	REST API (JSON)
+- Version Control:	Git + GitHub
 
