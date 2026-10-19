@@ -16,3 +16,9 @@ Travel fino with Travelino
 - Communication:	REST API (JSON)
 - Version Control:	Git + GitHub
 
+
+# Building
+Requires Docker with the buildx CLI plugin. Run `docker buildx build . -t travelino`.
+
+# Running
+After building, run it like any other docker image: `docker run --rm -p 8080:8080 travelino`.
