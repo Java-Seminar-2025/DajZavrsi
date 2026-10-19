@@ -41,7 +41,7 @@ A web application for managing and validating final theses.
 - **Database:** MySQL
 - **Document Processing:** Apache PDFBox (PDF), Apache POI (Word)
 - **Validation:** Custom Java validation rules based on university requirements
-- **AI Integration (Optional):** OpenAI API / Ollama (local LLM)
+- **AI Integration:** OpenAI API / Ollama (local LLM)
 - **Communication:** REST API (JSON)
 - **Authentication & Authorization:** Spring Security
 - **Version Control:** Git + GitHub
