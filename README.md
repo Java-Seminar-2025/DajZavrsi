@@ -80,25 +80,14 @@ A web application for managing and validating final theses.
 8. ValidationRules – Defines the rules that thesis documents must follow. These rules can be different for each study program.
 9. ValidationResults – Stores the results of automatic document checks, showing which rules a thesis version passed or failed.
 
-## Building
-Requires Docker with the buildx CLI plugin.
+## Building and running
+Use docker compose to build and run the application and its required environment.
 
-Once the Docker configuration is implemented, build the application using:
-
-```bash
-docker buildx build . -t thesis-validation
-```
-
-## Running
-After building the Docker image, run:
+By default, it will serve a frontend on port 8080.
 
 ```bash
-docker run --rm -p 8080:8080 thesis-validation
+docker compose up
 ```
-
-The application will be accessible at:
-
-`http://localhost:8080`
 
 *Note: Docker commands assume the application has been configured to package and serve the frontend and backend together. Database configuration is also required.*
 
