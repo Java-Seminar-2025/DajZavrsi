@@ -9,4 +9,4 @@ FROM eclipse-temurin:21-jre-jammy AS runtime
 ARG JAR_FILE=/usr/dajzavrsi/target/*.jar
 COPY --from=build $JAR_FILE /app/dajzavrsi.jar
 EXPOSE 8080
-ENTRYPOINT java -jar /app/dajzavrsi.jar
+ENTRYPOINT [ "java", "-jar", "/app/dajzavrsi.jar" ]

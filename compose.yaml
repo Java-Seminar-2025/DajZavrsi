@@ -1,4 +1,15 @@
 services:
+  dajzavrsi:
+    container_name: dajzavrsi
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    build:
+      context: .
+      dockerfile: docker/dajzavrsi.Dockerfile
+
   mysql:
     image: mysql:8.4
     container_name: dajzavrsi-mysql
@@ -10,11 +21,12 @@ services:
       MYSQL_USER: dajzavrsi
       MYSQL_PASSWORD: devpass
 
-    ports:
-      - "3307:3306"
-
     volumes:
       - mysql_data:/var/lib/mysql
+
+    healthcheck:
+      test: mysqladmin ping
+      interval: 5s
 
 volumes:
   mysql_data:
