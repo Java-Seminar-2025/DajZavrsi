@@ -68,6 +68,18 @@ A web application for managing and validating final theses.
 7. If corrections are required, the student uploads a revised version.
 8. The thesis is marked as approved once the mentor and both committee members have approved it.
 
+## Database 
+
+1. Roles – Defines the different roles in the application, such as Student, Professor, and Admin.
+2. Users – Stores all registered users and connects each user to their assigned role.
+3. StudyPrograms – Stores different study programs, such as Computer Science and Economics. Each program can have different thesis requirements.
+4. Theses – Stores students' thesis topics and tracks their progress from creation to final approval.
+5. Assignments – Connects professors to theses and defines whether they are mentors or committee members.
+6. ThesisVersions – Stores different versions of a thesis, allowing students to upload corrected documents without losing previous versions.
+7. Reviews – Allows mentors and committee members to review thesis topics and documents, provide feedback, and approve them or request changes.
+8. ValidationRules – Defines the rules that thesis documents must follow. These rules can be different for each study program.
+9. ValidationResults – Stores the results of automatic document checks, showing which rules a thesis version passed or failed.
+
 ## Building
 Requires Docker with the buildx CLI plugin.
 
