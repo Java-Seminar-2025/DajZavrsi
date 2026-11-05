@@ -53,6 +53,18 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- Flyway for migrations -->
+		<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-flyway</artifactId>
+		</dependency>
+
+		<dependency>
+	    <groupId>org.flywaydb</groupId>
+	    <artifactId>flyway-mysql</artifactId>
+	    <scope>runtime</scope>
+		</dependency>
+
 		<!-- H2 database for tests -->
 		<dependency>
 			<groupId>com.h2database</groupId>
