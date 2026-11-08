@@ -68,7 +68,7 @@ A web application for managing and validating final theses.
 7. If corrections are required, the student uploads a revised version.
 8. The thesis is marked as approved once the mentor and both committee members have approved it.
 
-##Database
+## Database
 
 The database consists of four main tables:
     * User – Stores all registered users, including students, mentors, and committee members. Each user has a role that defines their responsibilities in the application.
