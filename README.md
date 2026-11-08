@@ -71,11 +71,14 @@ A web application for managing and validating final theses.
 ## Database
 
 The database consists of four main tables:
+
     * User – Stores all registered users, including students, mentors, and committee members. Each user has a role that defines their responsibilities in the application.
     * Assignment – Stores thesis assignments and connects each student with a mentor and two committee members. It also contains the thesis subject, validation schema, and current assignment status.
     * Submission – Stores different versions of a thesis submitted by a student. Each submission is connected to an assignment and contains the document URL, validation report URL, version number, and review status.
     * Review – Stores reviews submitted by mentors and committee members. Each review is connected to a specific submission and reviewer, containing the approval status and optional feedback.
+    
 Database Relationships
+    
     * One user can have multiple assignments as a student, mentor, or committee member.
     * One assignment can have multiple submissions.
     * One submission can have multiple reviews.
