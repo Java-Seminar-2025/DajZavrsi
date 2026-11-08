@@ -68,17 +68,18 @@ A web application for managing and validating final theses.
 7. If corrections are required, the student uploads a revised version.
 8. The thesis is marked as approved once the mentor and both committee members have approved it.
 
-## Database 
+##Database
 
-1. Roles – Defines the different roles in the application, such as Student, Professor, and Admin.
-2. Users – Stores all registered users and connects each user to their assigned role.
-3. StudyPrograms – Stores different study programs, such as Computer Science and Economics. Each program can have different thesis requirements.
-4. Theses – Stores students' thesis topics and tracks their progress from creation to final approval.
-5. Assignments – Connects professors to theses and defines whether they are mentors or committee members.
-6. ThesisVersions – Stores different versions of a thesis, allowing students to upload corrected documents without losing previous versions.
-7. Reviews – Allows mentors and committee members to review thesis topics and documents, provide feedback, and approve them or request changes.
-8. ValidationRules – Defines the rules that thesis documents must follow. These rules can be different for each study program.
-9. ValidationResults – Stores the results of automatic document checks, showing which rules a thesis version passed or failed.
+The database consists of four main tables:
+    * User – Stores all registered users, including students, mentors, and committee members. Each user has a role that defines their responsibilities in the application.
+    * Assignment – Stores thesis assignments and connects each student with a mentor and two committee members. It also contains the thesis subject, validation schema, and current assignment status.
+    * Submission – Stores different versions of a thesis submitted by a student. Each submission is connected to an assignment and contains the document URL, validation report URL, version number, and review status.
+    * Review – Stores reviews submitted by mentors and committee members. Each review is connected to a specific submission and reviewer, containing the approval status and optional feedback.
+Database Relationships
+    * One user can have multiple assignments as a student, mentor, or committee member.
+    * One assignment can have multiple submissions.
+    * One submission can have multiple reviews.
+    * Each review belongs to one submission and one reviewer.
 
 ## Building and running
 Use docker compose to build and run the application and its required environment.
