@@ -2,12 +2,22 @@
 </script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+<div id="app-container" class="container" style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-around;">
+    <h1>
+        Daj Završi
+    </h1>
+    <div class="container" style="display: flex; flex: 1; align-items: center;">
+        <a href="users/login">Login</a>
+    </div>
+</div>
 </template>
 
 <style scoped>
+h1 {
+    font-size: 72pt;
+}
+
+a {
+    font-size: 24pt;
+}
 </style>
