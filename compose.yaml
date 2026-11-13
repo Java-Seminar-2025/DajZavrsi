@@ -5,10 +5,23 @@ services:
       mysql:
         condition: service_healthy
     ports:
-      - "8080:8080"
+      - "8081:8080"
     build:
       context: ./backend/
-      dockerfile: docker/dajzavrsi.Dockerfile
+      dockerfile: docker/dajzavrsi-backend.Dockerfile
+
+  dajzavrsi-frontend:
+    container_name: dajzavrsi-frontend
+    depends_on:
+      mysql:
+        condition: service_healthy
+      dajzavrsi:
+        condition: service_started
+    ports:
+      - "8080:80"
+    build :
+      context: ./frontend/
+      dockerfile: docker/dajzavrsi-frontend.Dockerfile
 
   mysql:
     image: mysql:8.4

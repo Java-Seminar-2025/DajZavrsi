@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    background: darkslategrey;
+    color: whitesmoke;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex .flex-column {
+    flex-direction: column;
+}
+
+#app {
+    height: 100vh;
+}
