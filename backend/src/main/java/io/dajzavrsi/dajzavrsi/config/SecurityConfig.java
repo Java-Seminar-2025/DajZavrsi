@@ -22,17 +22,23 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
         throws Exception {
 
-        http.authorizeHttpRequests(this::configureAccess);
-        http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
 
+        http.authorizeHttpRequests((auth) -> auth
+            .requestMatchers("/api/auth/login")
+            .permitAll()
+            .anyRequest()
+            .authenticated());
+
+        http.formLogin((form) -> form
+            .loginPage("/users/login")
+            .failureUrl("/users/login?error")
+            .loginProcessingUrl("/api/auth/login")
+        );
+
+        // TODO: configure CSRF properly.
+        http.csrf((csrf) -> csrf.disable());
+
         return http.build();
-    }
-
-    private void configureAccess(
-        AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auth) {
-
-        auth.requestMatchers("/api/auth/login").permitAll();
-        auth.anyRequest().authenticated();
     }
 }
