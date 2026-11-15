@@ -12,71 +12,46 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "submission")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Submission {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "submission_id")
-    private Integer id;
+    @Getter
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "assignment_id", nullable = false)
+    @Getter
+    @Setter
     private Assignment assignment;
 
     @Column(name = "version", nullable = false)
+    @Getter
+    @Setter
     private Integer version;
 
     @Column(name = "document_url", nullable = false)
+    @Getter
+    @Setter
     private String documentUrl;
 
     @Column(name = "validation_report_url")
+    @Getter
+    @Setter
     private String validationReportUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "review_status", nullable = false)
+    @Getter
+    @Setter
     private SubmissionStatus reviewStatus;
-
-    protected Submission() {
-    }
-
-    public Submission(Assignment assignment, Integer version, String documentUrl, SubmissionStatus reviewStatus) {
-        this.assignment = assignment;
-        this.version = version;
-        this.documentUrl = documentUrl;
-        this.reviewStatus = reviewStatus;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public Assignment getAssignment() {
-        return assignment;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public String getDocumentUrl() {
-        return documentUrl;
-    }
-
-    public String getValidationReportUrl() {
-        return validationReportUrl;
-    }
-
-    public void setValidationReportUrl(String validationReportUrl) {
-        this.validationReportUrl = validationReportUrl;
-    }
-
-    public SubmissionStatus getReviewStatus() {
-        return reviewStatus;
-    }
-
-    public void setReviewStatus(SubmissionStatus reviewStatus) {
-        this.reviewStatus = reviewStatus;
-    }
 }

@@ -12,108 +12,59 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "assignment")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Assignment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "assignment_id")
-    private Integer id;
+    @Getter
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "student_id", nullable = false)
+    @Getter
+    @Setter
     private User student;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "mentor_id", nullable = false)
+    @Getter
+    @Setter
     private User mentor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "committee1_id")
+    @Getter
+    @Setter
     private User committee1;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "committee2_id")
+    @Getter
+    @Setter
     private User committee2;
 
     @Column(name = "subject", nullable = false, columnDefinition = "TEXT")
+    @Getter
+    @Setter
     private String subject;
 
     @Column(name = "validation_schema_url")
+    @Getter
+    @Setter
     private String validationSchemaUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
+    @Getter
+    @Setter
     private AssignmentStatus status;
-
-    protected Assignment() {
-    }
-
-    public Assignment(User student, User mentor, String subject, AssignmentStatus status) {
-        this.student = student;
-        this.mentor = mentor;
-        this.subject = subject;
-        this.status = status;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public User getStudent() {
-        return student;
-    }
-
-    public void setStudent(User student) {
-        this.student = student;
-    }
-
-    public User getMentor() {
-        return mentor;
-    }
-
-    public void setMentor(User mentor) {
-        this.mentor = mentor;
-    }
-
-    public User getCommittee1() {
-        return committee1;
-    }
-
-    public void setCommittee1(User committee1) {
-        this.committee1 = committee1;
-    }
-
-    public User getCommittee2() {
-        return committee2;
-    }
-
-    public void setCommittee2(User committee2) {
-        this.committee2 = committee2;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getValidationSchemaUrl() {
-        return validationSchemaUrl;
-    }
-
-    public void setValidationSchemaUrl(String validationSchemaUrl) {
-        this.validationSchemaUrl = validationSchemaUrl;
-    }
-
-    public AssignmentStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(AssignmentStatus status) {
-        this.status = status;
-    }
 }

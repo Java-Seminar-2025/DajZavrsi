@@ -4,11 +4,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import io.dajzavrsi.dajzavrsi.entity.Review;
 
-public interface ReviewRepository extends JpaRepository<Review, Integer> {
+public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    List<Review> findBySubmissionId(Integer submissionId);
+    List<Review> findBySubmissionId(Long submissionId);
 
-    List<Review> findByReviewerId(Integer reviewerId);
+    List<Review> findByReviewerId(Long reviewerId);
 
-    boolean existsBySubmissionIdAndReviewerId(Integer submissionId, Integer reviewerId);
+    boolean existsBySubmissionIdAndReviewerId(Long submissionId, Long reviewerId);
 }
