@@ -1,11 +1,5 @@
 package io.dajzavrsi.dajzavrsi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-
 public class Thesis {
     private long id;
     private String title;

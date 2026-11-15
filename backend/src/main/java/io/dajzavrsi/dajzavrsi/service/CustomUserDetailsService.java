@@ -1,7 +1,6 @@
 
 package io.dajzavrsi.dajzavrsi.service;
 
-import io.dajzavrsi.dajzavrsi.entity.User;
 import io.dajzavrsi.dajzavrsi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
