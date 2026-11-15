@@ -3,11 +3,7 @@ package io.dajzavrsi.dajzavrsi.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -32,32 +28,20 @@ import jakarta.persistence.EntityManager;
 @ActiveProfiles("test")
 @Transactional
 class PersistenceIntegrationTests {
-
-    @Autowired
-    private UserRepository users;
-
-    @Autowired
-    private AssignmentRepository assignments;
-
-    @Autowired
-    private SubmissionRepository submissions;
-
-    @Autowired
-    private ReviewRepository reviews;
-
-    @Autowired
-    private EntityManager entityManager;
-
-    @Autowired
-    private JdbcTemplate jdbc;
+    @Autowired private UserRepository users;
+    @Autowired private AssignmentRepository assignments;
+    @Autowired private SubmissionRepository submissions;
+    @Autowired private ReviewRepository reviews;
+    @Autowired private EntityManager entityManager;
+    @Autowired private JdbcTemplate jdbc;
 
     @Test
     void savesAndLoadsUser() {
-        byte[] password = passwordHash();
+        var password = passwordHash();
         users.save(new User(null, "ana", password, Role.STUDENT));
         flushAndClear();
 
-        User loaded = users.findByUsername("ana").orElseThrow();
+        var loaded = users.findByUsername("ana").orElseThrow();
 
         assertThat(loaded.getId()).isNotNull();
         assertThat(loaded.getPassword()).isEqualTo(password);
@@ -76,14 +60,14 @@ class PersistenceIntegrationTests {
 
     @Test
     void savesAssignmentWithRelationshipsAndOptionalCommittee() {
-        User student = users.save(user("student", Role.STUDENT));
-        User mentor = users.save(user("mentor", Role.FACULTY));
-        User member = users.save(user("member", Role.FACULTY));
-        Assignment assignment = new Assignment(null, student, mentor, member, null, "Thesis validation", null, AssignmentStatus.IN_PROGRESS);
-        Integer id = assignments.save(assignment).getId();
+        var student = users.save(user("student", Role.STUDENT));
+        var mentor = users.save(user("mentor", Role.FACULTY));
+        var member = users.save(user("member", Role.FACULTY));
+        var assignment = new Assignment(null, student, mentor, member, null, "Thesis validation", null, AssignmentStatus.IN_PROGRESS);
+        var id = assignments.save(assignment).getId();
         flushAndClear();
 
-        Assignment loaded = assignments.findById(id).orElseThrow();
+        var loaded = assignments.findById(id).orElseThrow();
 
         assertThat(loaded.getStudent().getUsername()).isEqualTo("student");
         assertThat(loaded.getMentor().getUsername()).isEqualTo("mentor");
@@ -96,14 +80,14 @@ class PersistenceIntegrationTests {
 
     @Test
     void findsAssignmentsByStudentAndMentor() {
-        User studentA = users.save(user("student-a", Role.STUDENT));
-        User studentB = users.save(user("student-b", Role.STUDENT));
-        User mentorX = users.save(user("mentor-x", Role.FACULTY));
-        User mentorY = users.save(user("mentor-y", Role.FACULTY));
-        User uninvolved = users.save(user("uninvolved", Role.FACULTY));
-        Integer aWithX = assignments.save(new Assignment(null, studentA, mentorX, null, null, "A-X", null, AssignmentStatus.IN_PROGRESS)).getId();
-        Integer aWithY = assignments.save(new Assignment(null, studentA, mentorY, null, null, "A-Y", null, AssignmentStatus.IN_PROGRESS)).getId();
-        Integer bWithX = assignments.save(new Assignment(null, studentB, mentorX, null, null, "B-X", null, AssignmentStatus.IN_PROGRESS)).getId();
+        var studentA = users.save(user("student-a", Role.STUDENT));
+        var studentB = users.save(user("student-b", Role.STUDENT));
+        var mentorX = users.save(user("mentor-x", Role.FACULTY));
+        var mentorY = users.save(user("mentor-y", Role.FACULTY));
+        var uninvolved = users.save(user("uninvolved", Role.FACULTY));
+        var aWithX = assignments.save(new Assignment(null, studentA, mentorX, null, null, "A-X", null, AssignmentStatus.IN_PROGRESS)).getId();
+        var aWithY = assignments.save(new Assignment(null, studentA, mentorY, null, null, "A-Y", null, AssignmentStatus.IN_PROGRESS)).getId();
+        var bWithX = assignments.save(new Assignment(null, studentB, mentorX, null, null, "B-X", null, AssignmentStatus.IN_PROGRESS)).getId();
         flushAndClear();
 
         assertThat(assignments.findByStudentId(studentA.getId())).extracting(Assignment::getId)
@@ -121,11 +105,11 @@ class PersistenceIntegrationTests {
 
     @Test
     void findsAssignmentsByEitherCommitteeSlot() {
-        User student = users.save(user("student", Role.STUDENT));
-        User mentor = users.save(user("mentor", Role.FACULTY));
-        User member = users.save(user("member", Role.FACULTY));
-        Assignment first = new Assignment(null, student, mentor, member, null, "First", null, AssignmentStatus.IN_PROGRESS);
-        Assignment second = new Assignment(null, student, mentor, null, member, "Second", null, AssignmentStatus.IN_PROGRESS);
+        var student = users.save(user("student", Role.STUDENT));
+        var mentor = users.save(user("mentor", Role.FACULTY));
+        var member = users.save(user("member", Role.FACULTY));
+        var first = new Assignment(null, student, mentor, member, null, "First", null, AssignmentStatus.IN_PROGRESS);
+        var second = new Assignment(null, student, mentor, null, member, "Second", null, AssignmentStatus.IN_PROGRESS);
         assignments.save(first);
         assignments.save(second);
         assignments.save(new Assignment(null, student, mentor, null, null, "Unrelated", null, AssignmentStatus.IN_PROGRESS));
@@ -138,7 +122,7 @@ class PersistenceIntegrationTests {
 
     @Test
     void returnsSubmissionVersionsNewestFirst() {
-        Assignment assignment = assignment();
+        var assignment = assignment();
         submissions.save(new Submission(null, assignment, 1, "doc-1", null, SubmissionStatus.DENIED));
         submissions.save(new Submission(null, assignment, 3, "doc-3", null, SubmissionStatus.PENDING_VALIDATION));
         submissions.save(new Submission(null, assignment, 2, "doc-2", null, SubmissionStatus.DENIED));
@@ -166,11 +150,11 @@ class PersistenceIntegrationTests {
 
     @Test
     void savesReviewsAndFindsThemBySubmissionAndReviewer() {
-        Assignment assignment = assignment();
-        Submission submission = submissions.save(
+        var assignment = assignment();
+        var submission = submissions.save(
                 new Submission(null, assignment, 1, "doc-1", null, SubmissionStatus.PENDING_REVIEW));
-        User mentor = assignment.getMentor();
-        User otherReviewer = users.save(user("other", Role.FACULTY));
+        var mentor = assignment.getMentor();
+        var otherReviewer = users.save(user("other", Role.FACULTY));
         reviews.save(new Review(null, submission, mentor, ReviewStatus.DENIED, "Fix the references."));
         flushAndClear();
 
@@ -188,14 +172,14 @@ class PersistenceIntegrationTests {
 
     @Test
     void findsReviewsByReviewer() {
-        Assignment assignment = assignment();
-        Submission first = submissions.save(new Submission(null, assignment, 1, "doc-1", null, SubmissionStatus.DENIED));
-        Submission second = submissions.save(new Submission(null, assignment, 2, "doc-2", null, SubmissionStatus.PENDING_REVIEW));
-        User mentor = assignment.getMentor();
-        User member = users.save(user("member", Role.FACULTY));
-        Integer mentorOnFirst = reviews.save(new Review(null, first, mentor, ReviewStatus.DENIED, null)).getId();
-        Integer mentorOnSecond = reviews.save(new Review(null, second, mentor, ReviewStatus.APPROVED, null)).getId();
-        Integer memberOnFirst = reviews.save(new Review(null, first, member, ReviewStatus.APPROVED, null)).getId();
+        var assignment = assignment();
+        var first = submissions.save(new Submission(null, assignment, 1, "doc-1", null, SubmissionStatus.DENIED));
+        var second = submissions.save(new Submission(null, assignment, 2, "doc-2", null, SubmissionStatus.PENDING_REVIEW));
+        var mentor = assignment.getMentor();
+        var member = users.save(user("member", Role.FACULTY));
+        var mentorOnFirst = reviews.save(new Review(null, first, mentor, ReviewStatus.DENIED, null)).getId();
+        var mentorOnSecond = reviews.save(new Review(null, second, mentor, ReviewStatus.APPROVED, null)).getId();
+        var memberOnFirst = reviews.save(new Review(null, first, member, ReviewStatus.APPROVED, null)).getId();
         flushAndClear();
 
         assertThat(reviews.findByReviewerId(mentor.getId())).extracting(Review::getId)
@@ -205,19 +189,17 @@ class PersistenceIntegrationTests {
     }
 
     private Assignment assignment() {
-        User student = users.save(user("student", Role.STUDENT));
-        User mentor = users.save(user("mentor", Role.FACULTY));
+        var student = users.save(user("student", Role.STUDENT));
+        var mentor = users.save(user("mentor", Role.FACULTY));
         return assignments.save(new Assignment(null, student, mentor, null, null, "Subject", null, AssignmentStatus.IN_PROGRESS));
     }
 
-    private static User user(String username, Role role) {
+    private User user(String username, Role role) {
         return new User(null, username, passwordHash(), role);
     }
 
-    private static byte[] passwordHash() {
-        byte[] hash = new byte[64];
-        Arrays.fill(hash, (byte) 7);
-        return hash;
+    private String passwordHash() {
+        return "passwordhash";
     }
 
     private String rawValue(String sql, Integer id) {

@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import io.dajzavrsi.dajzavrsi.entity.Submission;
 import io.dajzavrsi.dajzavrsi.entity.SubmissionStatus;
 
-public interface SubmissionRepository extends JpaRepository<Submission, Integer> {
+public interface SubmissionRepository extends JpaRepository<Submission, Long> {
 
-    List<Submission> findByAssignmentIdOrderByVersionDesc(Integer assignmentId);
+    List<Submission> findByAssignmentIdOrderByVersionDesc(Long assignmentId);
 
-    Optional<Submission> findFirstByAssignmentIdOrderByVersionDesc(Integer assignmentId);
+    Optional<Submission> findFirstByAssignmentIdOrderByVersionDesc(Long assignmentId);
 
     List<Submission> findByReviewStatus(SubmissionStatus reviewStatus);
 }

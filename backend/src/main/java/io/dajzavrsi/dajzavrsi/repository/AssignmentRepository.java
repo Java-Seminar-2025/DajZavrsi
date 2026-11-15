@@ -6,12 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import io.dajzavrsi.dajzavrsi.entity.Assignment;
 
-public interface AssignmentRepository extends JpaRepository<Assignment, Integer> {
+public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
 
-    List<Assignment> findByStudentId(Integer studentId);
+    List<Assignment> findByStudentId(Long studentId);
 
-    List<Assignment> findByMentorId(Integer mentorId);
+    List<Assignment> findByMentorId(Long mentorId);
 
     @Query("select a from Assignment a where a.committee1.id = :userId or a.committee2.id = :userId")
-    List<Assignment> findByCommitteeMemberId(@Param("userId") Integer userId);
+    List<Assignment> findByCommitteeMemberId(@Param("userId") Long userId);
 }
