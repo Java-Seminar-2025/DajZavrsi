@@ -26,7 +26,7 @@ public class Submission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "submission_id")
     @Getter
-    private Integer id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "assignment_id", nullable = false)
