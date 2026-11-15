@@ -8,8 +8,8 @@ let hasError = route.query.error !== undefined;
 <template>
 <form action="/api/auth/login" method="POST">
     <p v-if="hasError" class="error">Login failed. Please try again.</p>
-    <input type="text" placeholder="username"/>
-    <input type="password" placeholder="password"/>
+    <input type="text" placeholder="username" name="username"/>
+    <input type="password" placeholder="password" name="password"/>
     <button type="submit">Login</button>
 </form>
 </template>
