@@ -54,7 +54,7 @@ class PersistenceIntegrationTests {
     @Test
     void savesAndLoadsUser() {
         byte[] password = passwordHash();
-        users.save(new User("ana", password, Role.STUDENT));
+        users.save(new User(null, "ana", password, Role.STUDENT));
         flushAndClear();
 
         User loaded = users.findByUsername("ana").orElseThrow();
@@ -79,8 +79,7 @@ class PersistenceIntegrationTests {
         User student = users.save(user("student", Role.STUDENT));
         User mentor = users.save(user("mentor", Role.FACULTY));
         User member = users.save(user("member", Role.FACULTY));
-        Assignment assignment = new Assignment(student, mentor, "Thesis validation", AssignmentStatus.IN_PROGRESS);
-        assignment.setCommittee1(member);
+        Assignment assignment = new Assignment(null, student, mentor, member, null, "Thesis validation", null, AssignmentStatus.IN_PROGRESS);
         Integer id = assignments.save(assignment).getId();
         flushAndClear();
 
@@ -102,9 +101,9 @@ class PersistenceIntegrationTests {
         User mentorX = users.save(user("mentor-x", Role.FACULTY));
         User mentorY = users.save(user("mentor-y", Role.FACULTY));
         User uninvolved = users.save(user("uninvolved", Role.FACULTY));
-        Integer aWithX = assignments.save(new Assignment(studentA, mentorX, "A-X", AssignmentStatus.IN_PROGRESS)).getId();
-        Integer aWithY = assignments.save(new Assignment(studentA, mentorY, "A-Y", AssignmentStatus.IN_PROGRESS)).getId();
-        Integer bWithX = assignments.save(new Assignment(studentB, mentorX, "B-X", AssignmentStatus.IN_PROGRESS)).getId();
+        Integer aWithX = assignments.save(new Assignment(null, studentA, mentorX, null, null, "A-X", null, AssignmentStatus.IN_PROGRESS)).getId();
+        Integer aWithY = assignments.save(new Assignment(null, studentA, mentorY, null, null, "A-Y", null, AssignmentStatus.IN_PROGRESS)).getId();
+        Integer bWithX = assignments.save(new Assignment(null, studentB, mentorX, null, null, "B-X", null, AssignmentStatus.IN_PROGRESS)).getId();
         flushAndClear();
 
         assertThat(assignments.findByStudentId(studentA.getId())).extracting(Assignment::getId)
@@ -125,13 +124,11 @@ class PersistenceIntegrationTests {
         User student = users.save(user("student", Role.STUDENT));
         User mentor = users.save(user("mentor", Role.FACULTY));
         User member = users.save(user("member", Role.FACULTY));
-        Assignment first = new Assignment(student, mentor, "First", AssignmentStatus.IN_PROGRESS);
-        first.setCommittee1(member);
-        Assignment second = new Assignment(student, mentor, "Second", AssignmentStatus.IN_PROGRESS);
-        second.setCommittee2(member);
+        Assignment first = new Assignment(null, student, mentor, member, null, "First", null, AssignmentStatus.IN_PROGRESS);
+        Assignment second = new Assignment(null, student, mentor, null, member, "Second", null, AssignmentStatus.IN_PROGRESS);
         assignments.save(first);
         assignments.save(second);
-        assignments.save(new Assignment(student, mentor, "Unrelated", AssignmentStatus.IN_PROGRESS));
+        assignments.save(new Assignment(null, student, mentor, null, null, "Unrelated", null, AssignmentStatus.IN_PROGRESS));
         flushAndClear();
 
         assertThat(assignments.findByCommitteeMemberId(member.getId()))
@@ -142,9 +139,9 @@ class PersistenceIntegrationTests {
     @Test
     void returnsSubmissionVersionsNewestFirst() {
         Assignment assignment = assignment();
-        submissions.save(new Submission(assignment, 1, "doc-1", SubmissionStatus.DENIED));
-        submissions.save(new Submission(assignment, 3, "doc-3", SubmissionStatus.PENDING_VALIDATION));
-        submissions.save(new Submission(assignment, 2, "doc-2", SubmissionStatus.DENIED));
+        submissions.save(new Submission(null, assignment, 1, "doc-1", null, SubmissionStatus.DENIED));
+        submissions.save(new Submission(null, assignment, 3, "doc-3", null, SubmissionStatus.PENDING_VALIDATION));
+        submissions.save(new Submission(null, assignment, 2, "doc-2", null, SubmissionStatus.DENIED));
         flushAndClear();
 
         assertThat(submissions.findByAssignmentIdOrderByVersionDesc(assignment.getId()))
@@ -171,10 +168,10 @@ class PersistenceIntegrationTests {
     void savesReviewsAndFindsThemBySubmissionAndReviewer() {
         Assignment assignment = assignment();
         Submission submission = submissions.save(
-                new Submission(assignment, 1, "doc-1", SubmissionStatus.PENDING_REVIEW));
+                new Submission(null, assignment, 1, "doc-1", null, SubmissionStatus.PENDING_REVIEW));
         User mentor = assignment.getMentor();
         User otherReviewer = users.save(user("other", Role.FACULTY));
-        reviews.save(new Review(submission, mentor, ReviewStatus.DENIED, "Fix the references."));
+        reviews.save(new Review(null, submission, mentor, ReviewStatus.DENIED, "Fix the references."));
         flushAndClear();
 
         assertThat(reviews.findBySubmissionId(submission.getId()))
@@ -192,13 +189,13 @@ class PersistenceIntegrationTests {
     @Test
     void findsReviewsByReviewer() {
         Assignment assignment = assignment();
-        Submission first = submissions.save(new Submission(assignment, 1, "doc-1", SubmissionStatus.DENIED));
-        Submission second = submissions.save(new Submission(assignment, 2, "doc-2", SubmissionStatus.PENDING_REVIEW));
+        Submission first = submissions.save(new Submission(null, assignment, 1, "doc-1", null, SubmissionStatus.DENIED));
+        Submission second = submissions.save(new Submission(null, assignment, 2, "doc-2", null, SubmissionStatus.PENDING_REVIEW));
         User mentor = assignment.getMentor();
         User member = users.save(user("member", Role.FACULTY));
-        Integer mentorOnFirst = reviews.save(new Review(first, mentor, ReviewStatus.DENIED, null)).getId();
-        Integer mentorOnSecond = reviews.save(new Review(second, mentor, ReviewStatus.APPROVED, null)).getId();
-        Integer memberOnFirst = reviews.save(new Review(first, member, ReviewStatus.APPROVED, null)).getId();
+        Integer mentorOnFirst = reviews.save(new Review(null, first, mentor, ReviewStatus.DENIED, null)).getId();
+        Integer mentorOnSecond = reviews.save(new Review(null, second, mentor, ReviewStatus.APPROVED, null)).getId();
+        Integer memberOnFirst = reviews.save(new Review(null, first, member, ReviewStatus.APPROVED, null)).getId();
         flushAndClear();
 
         assertThat(reviews.findByReviewerId(mentor.getId())).extracting(Review::getId)
@@ -210,11 +207,11 @@ class PersistenceIntegrationTests {
     private Assignment assignment() {
         User student = users.save(user("student", Role.STUDENT));
         User mentor = users.save(user("mentor", Role.FACULTY));
-        return assignments.save(new Assignment(student, mentor, "Subject", AssignmentStatus.IN_PROGRESS));
+        return assignments.save(new Assignment(null, student, mentor, null, null, "Subject", null, AssignmentStatus.IN_PROGRESS));
     }
 
     private static User user(String username, Role role) {
-        return new User(username, passwordHash(), role);
+        return new User(null, username, passwordHash(), role);
     }
 
     private static byte[] passwordHash() {
