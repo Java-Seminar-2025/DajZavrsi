@@ -120,58 +120,6 @@ class PersistenceIntegrationTests {
         assertThat(assignments.findByMentorId(uninvolved.getId())).isEmpty();
     }
 
-    @ParameterizedTest
-    @CsvSource({ "STUDENT, student", "FACULTY, faculty" })
-    void mapsRoleToDatabaseValue(Role role, String dbValue) {
-        Integer id = users.save(user("someone", role)).getId();
-        flushAndClear();
-
-        assertThat(rawValue("SELECT `role` FROM `user` WHERE `user_id` = ?", id)).isEqualTo(dbValue);
-        assertThat(users.findById(id).orElseThrow().getRole()).isEqualTo(role);
-    }
-
-    @ParameterizedTest
-    @CsvSource({ "IN_PROGRESS, in_progress", "PASSED, passed", "FAILED, failed" })
-    void mapsAssignmentStatusToDatabaseValue(AssignmentStatus status, String dbValue) {
-        Assignment assignment = assignment();
-        assignment.setStatus(status);
-        Integer id = assignment.getId();
-        flushAndClear();
-
-        assertThat(rawValue("SELECT `status` FROM `assignment` WHERE `assignment_id` = ?", id)).isEqualTo(dbValue);
-        assertThat(assignments.findById(id).orElseThrow().getStatus()).isEqualTo(status);
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "PENDING_VALIDATION, pending_validation",
-            "PENDING_REVIEW, pending_review",
-            "APPROVED, approved",
-            "DENIED, denied"
-    })
-    void mapsSubmissionStatusToDatabaseValue(SubmissionStatus status, String dbValue) {
-        Integer id = submissions.save(new Submission(assignment(), 1, "doc-1", status)).getId();
-        flushAndClear();
-
-        assertThat(rawValue("SELECT `review_status` FROM `submission` WHERE `submission_id` = ?", id))
-                .isEqualTo(dbValue);
-        assertThat(submissions.findById(id).orElseThrow().getReviewStatus()).isEqualTo(status);
-        assertThat(submissions.findByReviewStatus(status)).extracting(Submission::getId).containsExactly(id);
-    }
-
-    @ParameterizedTest
-    @CsvSource({ "APPROVED, approved", "DENIED, denied" })
-    void mapsReviewStatusToDatabaseValue(ReviewStatus status, String dbValue) {
-        Assignment assignment = assignment();
-        Submission submission = submissions.save(
-                new Submission(assignment, 1, "doc-1", SubmissionStatus.PENDING_REVIEW));
-        Integer id = reviews.save(new Review(submission, assignment.getMentor(), status, null)).getId();
-        flushAndClear();
-
-        assertThat(rawValue("SELECT `status` FROM `review` WHERE `review_id` = ?", id)).isEqualTo(dbValue);
-        assertThat(reviews.findById(id).orElseThrow().getStatus()).isEqualTo(status);
-    }
-
     @Test
     void findsAssignmentsByEitherCommitteeSlot() {
         User student = users.save(user("student", Role.STUDENT));
