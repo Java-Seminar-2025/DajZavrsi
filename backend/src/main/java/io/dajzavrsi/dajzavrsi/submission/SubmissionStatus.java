@@ -1,4 +1,4 @@
-package io.dajzavrsi.dajzavrsi.entity;
+package io.dajzavrsi.dajzavrsi.submission;
 
 public enum SubmissionStatus {
     PENDING_VALIDATION,

@@ -1,4 +1,4 @@
-package io.dajzavrsi.dajzavrsi.entity;
+package io.dajzavrsi.dajzavrsi.review;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +16,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import io.dajzavrsi.dajzavrsi.submission.Submission;
+import io.dajzavrsi.dajzavrsi.user.User;
 
 @Entity
 @Table(name = "review")

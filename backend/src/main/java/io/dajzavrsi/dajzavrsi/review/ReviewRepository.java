@@ -1,8 +1,7 @@
-package io.dajzavrsi.dajzavrsi.repository;
+package io.dajzavrsi.dajzavrsi.review;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import io.dajzavrsi.dajzavrsi.entity.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 

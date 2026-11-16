@@ -1,4 +1,4 @@
-package io.dajzavrsi.dajzavrsi.dto;
+package io.dajzavrsi.dajzavrsi.user.dto;
 
 public record FindUserByUsernameResponseDTO(
     Long id

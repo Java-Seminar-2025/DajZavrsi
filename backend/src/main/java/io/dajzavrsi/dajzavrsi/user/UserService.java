@@ -1,4 +1,4 @@
-package io.dajzavrsi.dajzavrsi.service;
+package io.dajzavrsi.dajzavrsi.user;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -7,13 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import io.dajzavrsi.dajzavrsi.dto.ChangeUserPasswordRequestDTO;
-import io.dajzavrsi.dajzavrsi.dto.CreateUserRequestDTO;
-import io.dajzavrsi.dajzavrsi.dto.CreateUserResponseDTO;
-import io.dajzavrsi.dajzavrsi.dto.FindUserByUsernameRequestDTO;
-import io.dajzavrsi.dajzavrsi.dto.FindUserByUsernameResponseDTO;
-import io.dajzavrsi.dajzavrsi.entity.User;
-import io.dajzavrsi.dajzavrsi.repository.UserRepository;
+import io.dajzavrsi.dajzavrsi.user.dto.*;
 
 @Service
 @RequiredArgsConstructor

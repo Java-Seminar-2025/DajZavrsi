@@ -1,5 +1,5 @@
 
-package io.dajzavrsi.dajzavrsi.controller;
+package io.dajzavrsi.dajzavrsi.user;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;

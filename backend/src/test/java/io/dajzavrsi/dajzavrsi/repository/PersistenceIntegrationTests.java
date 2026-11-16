@@ -11,14 +11,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.dajzavrsi.dajzavrsi.entity.Assignment;
-import io.dajzavrsi.dajzavrsi.entity.AssignmentStatus;
-import io.dajzavrsi.dajzavrsi.entity.Review;
-import io.dajzavrsi.dajzavrsi.entity.ReviewStatus;
-import io.dajzavrsi.dajzavrsi.entity.Role;
-import io.dajzavrsi.dajzavrsi.entity.Submission;
-import io.dajzavrsi.dajzavrsi.entity.SubmissionStatus;
-import io.dajzavrsi.dajzavrsi.entity.User;
+import io.dajzavrsi.dajzavrsi.assignment.*;
+import io.dajzavrsi.dajzavrsi.user.*;
+import io.dajzavrsi.dajzavrsi.submission.*;
+import io.dajzavrsi.dajzavrsi.review.*;
+
 import jakarta.persistence.EntityManager;
 
 @SpringBootTest(properties = {

@@ -1,4 +1,4 @@
-package io.dajzavrsi.dajzavrsi.entity;
+package io.dajzavrsi.dajzavrsi.user;
 
 import java.util.Collection;
 import java.util.Collections;

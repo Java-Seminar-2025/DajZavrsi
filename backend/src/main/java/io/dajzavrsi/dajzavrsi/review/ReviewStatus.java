@@ -1,4 +1,4 @@
-package io.dajzavrsi.dajzavrsi.entity;
+package io.dajzavrsi.dajzavrsi.review;
 
 public enum ReviewStatus {
     APPROVED,

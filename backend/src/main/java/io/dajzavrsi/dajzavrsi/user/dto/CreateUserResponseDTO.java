@@ -1,4 +1,4 @@
-package io.dajzavrsi.dajzavrsi.dto;
+package io.dajzavrsi.dajzavrsi.user.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

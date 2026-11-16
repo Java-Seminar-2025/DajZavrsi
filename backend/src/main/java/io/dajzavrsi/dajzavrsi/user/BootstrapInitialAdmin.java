@@ -1,15 +1,11 @@
-package io.dajzavrsi.dajzavrsi;
+package io.dajzavrsi.dajzavrsi.user;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
-import io.dajzavrsi.dajzavrsi.dto.ChangeUserPasswordRequestDTO;
-import io.dajzavrsi.dajzavrsi.dto.CreateUserRequestDTO;
-import io.dajzavrsi.dajzavrsi.dto.FindUserByUsernameRequestDTO;
-import io.dajzavrsi.dajzavrsi.entity.Role;
-import io.dajzavrsi.dajzavrsi.service.UserService;
+import io.dajzavrsi.dajzavrsi.user.dto.*;
 
 @Component
 @RequiredArgsConstructor

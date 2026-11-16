@@ -1,4 +1,4 @@
-package io.dajzavrsi.dajzavrsi.entity;
+package io.dajzavrsi.dajzavrsi.user;
 
 public enum Role {
     STUDENT,

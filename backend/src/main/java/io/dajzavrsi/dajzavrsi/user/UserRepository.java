@@ -1,8 +1,7 @@
-package io.dajzavrsi.dajzavrsi.repository;
+package io.dajzavrsi.dajzavrsi.user;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
-import io.dajzavrsi.dajzavrsi.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 

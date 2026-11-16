@@ -1,10 +1,8 @@
-package io.dajzavrsi.dajzavrsi.repository;
+package io.dajzavrsi.dajzavrsi.submission;
 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
-import io.dajzavrsi.dajzavrsi.entity.Submission;
-import io.dajzavrsi.dajzavrsi.entity.SubmissionStatus;
 
 public interface SubmissionRepository extends JpaRepository<Submission, Long> {
 
