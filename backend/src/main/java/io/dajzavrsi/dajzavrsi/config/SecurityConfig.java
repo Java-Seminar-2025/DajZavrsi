@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -23,8 +24,12 @@ public class SecurityConfig {
 
         http.httpBasic(Customizer.withDefaults());
 
+        http.csrf((csrf) -> csrf.csrfTokenRepository(new HttpSessionCsrfTokenRepository()));
+
         http.authorizeHttpRequests((auth) -> auth
             .requestMatchers("/api/auth/login")
+            .permitAll()
+            .requestMatchers("/api/csrf")
             .permitAll()
             .anyRequest()
             .authenticated());
@@ -34,9 +39,6 @@ public class SecurityConfig {
             .failureUrl("/users/login?error")
             .loginProcessingUrl("/api/auth/login")
         );
-
-        // TODO: configure CSRF properly.
-        http.csrf((csrf) -> csrf.disable());
 
         return http.build();
     }
