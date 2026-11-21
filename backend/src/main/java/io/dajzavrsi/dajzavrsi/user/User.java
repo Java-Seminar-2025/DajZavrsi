@@ -2,6 +2,7 @@ package io.dajzavrsi.dajzavrsi.user;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,10 +27,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "user_id")
     @Getter
-    private Long id;
+    private UUID id;
 
     @Column(name = "username", nullable = false, unique = true, length = 64)
     @Getter
