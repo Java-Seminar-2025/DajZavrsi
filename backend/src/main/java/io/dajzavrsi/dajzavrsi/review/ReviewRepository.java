@@ -1,13 +1,14 @@
 package io.dajzavrsi.dajzavrsi.review;
 
 import java.util.List;
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ReviewRepository extends JpaRepository<Review, Long> {
+public interface ReviewRepository extends JpaRepository<Review, UUID> {
+    List<Review> findBySubmissionId(UUID submissionId);
 
-    List<Review> findBySubmissionId(Long submissionId);
+    List<Review> findByReviewerId(UUID reviewerId);
 
-    List<Review> findByReviewerId(Long reviewerId);
-
-    boolean existsBySubmissionIdAndReviewerId(Long submissionId, Long reviewerId);
+    boolean existsBySubmissionIdAndReviewerId(UUID submissionId, UUID reviewerId);
 }

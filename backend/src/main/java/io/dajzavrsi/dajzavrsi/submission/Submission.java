@@ -1,5 +1,7 @@
 package io.dajzavrsi.dajzavrsi.submission;
 
+import java.util.UUID;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -25,10 +27,10 @@ import io.dajzavrsi.dajzavrsi.assignment.Assignment;
 @NoArgsConstructor
 public class Submission {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "submission_id")
     @Getter
-    private Long id;
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "assignment_id", nullable = false)

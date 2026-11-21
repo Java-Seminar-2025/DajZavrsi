@@ -2,13 +2,14 @@ package io.dajzavrsi.dajzavrsi.submission;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SubmissionRepository extends JpaRepository<Submission, Long> {
+public interface SubmissionRepository extends JpaRepository<Submission, UUID> {
+    List<Submission> findByAssignmentIdOrderByVersionDesc(UUID assignmentId);
 
-    List<Submission> findByAssignmentIdOrderByVersionDesc(Long assignmentId);
-
-    Optional<Submission> findFirstByAssignmentIdOrderByVersionDesc(Long assignmentId);
+    Optional<Submission> findFirstByAssignmentIdOrderByVersionDesc(UUID assignmentId);
 
     List<Submission> findByReviewStatus(SubmissionStatus reviewStatus);
 }
